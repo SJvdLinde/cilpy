@@ -6,6 +6,34 @@ any other additions made to the library.
 
 ---
 
+## Overview
+
+The cooperative solvers added to `cilpy` split the variables into groups and give
+each group its own sub-solver. A sub-solver evaluates its part of a solution by
+inserting it into a context vector, which holds the best value found so far for
+every variable. Any `cilpy` solver can be used as the sub-solver, so the same
+approaches work with PSO, GA and DE.
+
+Four cooperative approaches are available:
+
+| Approach | Solver | Groups |
+|---|---|---|
+| CPSO | Static cooperative solver | stay the same for the whole run |
+| DRG | Dynamic random grouping solver | are shuffled into new random groups during the run |
+| DCPSO | Decomposition cooperative solver | start as one group and are split into smaller groups |
+| MCPSO | Merging cooperative solver | start as one group per variable and are merged into bigger groups |
+
+Each approach is built from interchangeable strategies:
+
+| Strategy | Options | Used by |
+|---|---|---|
+| Grouping | `StaticEvenGrouping`, `RandomGrouping`, `RandomGroupSizeGrouping` | all four |
+| Trigger | `FixedIntervalTrigger`, `EvaluationIntervalTrigger`, `StagnationTrigger`, `NeverTrigger` | DRG, DCPSO, MCPSO |
+| Splitter | `EvenSplitter`, `RandomSplitter` | DCPSO |
+| Merger | `EvenMerger`, `RandomMerger` | MCPSO |
+
+---
+
 ## Repository Structure
 
 Files marked `[new]` were added in this project, and files marked `[changed]` are
