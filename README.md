@@ -102,6 +102,26 @@ This installs `cilpy` and all its dependencies (`matplotlib`, `numpy`, `pandas`,
 ## Examples
 
 All examples are run from inside the `cilpy/` directory (with the virtual environment active).
+Results are written to `out/`.
+
+### One example per cooperative solver
+
+I added example files to show how each cooperative solver can be combined with different groupings, triggers and base solvers.
+
+| File | Solver | Problem | Shows |
+|---|---|---|---|
+| `cpso_examples.py` | CPSO | Rastrigin | the three groupings |
+| `drg_examples.py` | DRG | Rosenbrock | the three groupings and three triggers |
+| `dcpso_examples.py` | DCPSO | Rosenbrock | the three groupings, the random splitter and three triggers |
+| `mcpso_examples.py` | MCPSO | Rastrigin | the three groupings, the random merger and three triggers |
+
+```bash
+python3 examples/cpso_examples.py
+python3 examples/drg_examples.py
+python3 examples/dcpso_examples.py
+python3 examples/mcpso_examples.py
+```
+
 
 ### Cooperative approaches vs. baselines (unconstrained)
 
