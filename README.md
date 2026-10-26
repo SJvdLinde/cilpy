@@ -1,7 +1,7 @@
 # Python Computational Intelligence Library for Large-Scale Optimization Problems
 
-This is the overarching repository README. I decided to add this README to give more information on my addition to Cilpy. 
- The `cilpy/` subdirectory contains its own dedicated README with full library documentation, installation instructions, and usage examples. Refer to that for details about `cilpy` itself. This README contains information about the Large-Scale Optimization aspect and
+This README describes the large-scale optimization additions made to `cilpy`.
+The `cilpy/` folder has its own dedicated README with full library documentation, installation instructions and usage examples. Refer to that for details about `cilpy` itself. This README contains information about the Large-Scale Optimization aspect and
 any other additions made to the library.
 
 ---
@@ -76,7 +76,6 @@ Next to each file is what I added or updated.
     │   ├── dcpso_examples.py          # every DCPSO grouping, splitter and trigger [new]
     │   ├── mcpso_examples.py          # every MCPSO grouping, merger and trigger [new]
     │   ├── cooperative_exa.py         # CPSO, CGA, CDE against PSO, GA, DE [new]
-    │   ├── ccls_exa.py                # CCLS with cooperative solvers (constrained) [new]
     │   └── baselines_exa.py           # plain PSO, GA, DE baselines [new]
     └── test/
         └── solver/decomposition/      # unit tests for the decomposition package [new]
@@ -96,6 +95,33 @@ pip install -e .
 ```
 
 This installs `cilpy` and all its dependencies (`matplotlib`, `numpy`, `pandas`, `pytest`).
+
+To use the CEC 2010 large-scale benchmark functions (`cilpy/problem/cec2010.py`),
+install the optional `cec` extra, which adds the `opfunu` library (version 1.0.1):
+
+```bash
+pip install -e ".[cec]"
+```
+
+---
+
+## Evaluation Budget
+
+The original `ExperimentRunner` was only able to run experiments using
+an iteration budget. I updated it to be able to run experiments using a 
+fitness evaluations budget. An example of how to run it is given below:
+
+```python
+runner = ExperimentRunner(
+    problems=problems_to_run,
+    solver_configurations=solver_configs,
+    num_runs=30,
+    max_evaluations=100000,  # instead of max_iterations
+)
+```
+
+If both `max_iterations` and `max_evaluations` are given, a run stops at whichever
+is reached first.
 
 ---
 
@@ -128,14 +154,6 @@ python3 examples/mcpso_examples.py
 Runs `CPSO`, `CGA`, and `CDE` (cooperative decomposition) against plain `PSO`, `GA`, and `DE` baselines on the four unconstrained benchmark functions (Sphere, Quadric, Ackley, Rastrigin).
 ```bash
 python3 examples/cooperative_exa.py
-```
-
-### Coevolutionary Lagrangian solver vs. baselines (constrained)
-
-Runs `CCLS+CPSO`, `CCLS+CGA`, and `CCLS+CDE` against their `CCLS+PSO`, `CCLS+GA`, and `CCLS+DE` baselines on the constrained benchmark problems (ConstrainedSphere and G01).
-
-```bash
-python3 examples/ccls_exa.py
 ```
 
 ---
