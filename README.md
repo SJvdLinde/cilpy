@@ -16,12 +16,10 @@ approaches work with PSO, GA and DE.
 
 Four cooperative approaches are available:
 
-| Approach | Solver | Groups |
-|---|---|---|
-| CPSO | Static cooperative solver | stay the same for the whole run |
-| DRG | Dynamic random grouping solver | are shuffled into new random groups during the run |
-| DCPSO | Decomposition cooperative solver | start as one group and are split into smaller groups |
-| MCPSO | Merging cooperative solver | start as one group per variable and are merged into bigger groups |
+- Static cooperative solver
+- Dynamic random grouping solver
+- Decomposition cooperative solver
+- Merging cooperative solver
 
 Each approach is built from interchangeable strategies:
 
